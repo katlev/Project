@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>单位填写意见</title>
+    <link rel="stylesheet" href="../assets/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/common.css">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <style>
+        .navbar .container {
+            width: 100%;
+        }
+        .container {
+            width: 100%;
+            padding-right: 10px;
+            padding-left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <!--start:header-->
+    <div class="header">
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container clearfix" style="background-color: #1A56A8;padding-left: 10px">
+                    <a href="">
+                        <img src="../assets/img/logo_zc.png" alt="">
+                    </a>
+                </div>
+            </div>
+            <div class="menu">
+                <div class="container clearfix">
+                    <ul class="pull-left " role="tablist">
+                        <li >
+                            <a href="" class="link">职称评审</a>
+                        </li>
+                        <li >
+                            <a href="../Check/Check.html" class="link">职称审核</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="main">
+            <div class="container clearfix">
+                <div id="app" class="tab-content">
+                    <el-container>
+                        <el-aside width="250px" style="border-bottom: 1px solid #E6E6E6;border-left: 1px solid #E6E6E6;position:fixed;">
+                            <div class="h1 clearfix">审核操作</div>
+                            <el-menu :default-openeds="['2']" default-active="2-1">
+                                <el-submenu index="1">
+                                    <template slot="title"><i class="el-icon-user"></i>个人填写部分</template>
+                                    <el-menu-item index="1-1" @click="toExamine">个人资料</el-menu-item>
+                                </el-submenu>
+                                <el-submenu index="2">
+                                    <template slot="title"><i class="el-icon-office-building"></i>单位填写部分</template>
+                                    <el-menu-item index="2-1">单位意见</el-menu-item>
+                                    <!--<el-menu-item index="2-2">基层单位考核推荐意见</el-menu-item>
+                                    <el-menu-item index="2-3">任职期满任职期考核结果</el-menu-item>
+                                    <el-menu-item index="2-4">公示情况</el-menu-item>
+                                    <el-menu-item index="2-5">单位审议小组审议推荐意见</el-menu-item>
+                                    <el-menu-item index="2-6">专家鉴定意见</el-menu-item>
+                                    <el-menu-item index="2-7">答辩情况</el-menu-item>
+                                    <el-menu-item index="2-8">审核报送</el-menu-item>-->
+                                </el-submenu>
+                            </el-menu>
+                        </el-aside>
+                         <el-aside width="250px"></el-aside>
+                        <el-container style="border: 1px solid #eee;margin-left: 10px">
+                            <!--基本单位考核推荐意见-->
+                            <el-header style="padding: 0;height: auto">
+                                <div class="h1 clearfix">基本单位考核推荐意见</div>
+                            </el-header>
+                            <el-main style="padding:10px">
+                                <el-form :inline="true" :data="ruleForm" class="demo-ruleForm">
+                                    <el-form-item label="考核单位：" prop="expertAppraisal">
+                                        <el-input v-model="ruleForm.expertAppraisal"></el-input>
+                                    </el-form-item>
+                                </el-form>
+                                <el-form :data="ruleForm" class="demo-ruleForm" :rules="rules" ref="ruleForm">
+                                    <el-form-item label="单位负责人" prop="director">
+                                        <el-input v-model="ruleForm.director"></el-input>
+                                    </el-form-item>
+
+                                    <el-form-item label="考核单位推荐意见" prop="exaRecommend">
+                                        <el-alert
+                                                title="填报说明"
+                                                style="margin-bottom: 10px"
+                                                type="warning"
+                                                description="1、对申报者本人的德、能、勤、绩展开评议，着重叙述申报人是否具备相应的专业技术你能力，是否能胜任相应专业技术工作;"
+                                                show-icon>
+                                        </el-alert>
+                                        <el-input rows="5" type="textarea" v-model="ruleForm.exaRecommend"></el-input>
+                                    </el-form-item>
+                                </el-form>
+                            </el-main>
+
+                            <!--任现职期满考核结果-->
+                            <el-header style="padding: 0;height: auto">
+                                <div class="h1 clearfix">任现职期满考核结果</div>
+                            </el-header>
+                            <el-main style="padding:10px">
+                                <!--<div class="box clearfix" >
+                                    <h4 style="display: inline-block;font-weight: bold">考核单位：蓝海集团</h4>
+                                </div>-->
+                                <el-form :data="ruleForm" class="demo-ruleForm" :rules="rules" ref="ruleForm">
+
+                                    <!--<el-form-item label="单位负责人" prop="comName">
+                                        <el-input v-model="ruleForm.comName"></el-input>
+                                    </el-form-item>-->
+                                    <el-form-item label="考核结果说明" prop="exaResult">
+                                        <el-alert
+                                                title="填报说明"
+                                                style="margin-bottom: 10px"
+                                                type="warning"
+                                                description="1、对申报者本人现任职期考核结果进行说明，着重叙述申报人是否具备相应的专业技术你能力，是否能胜任相应专业技术工作;"
+                                                show-icon>
+                                        </el-alert>
+                                        <el-input rows="5" type="textarea" v-model="ruleForm.exaResult"></el-input>
+                                    </el-form-item>
+                                </el-form>
+                            </el-main>
+
+                            <!--公示情况-->
+                            <el-header style="padding: 0;height: auto">
+                                <div class="h1 clearfix">公示情况</div>
+                            </el-header>
+                            <el-main style="padding:10px">
+                                <el-form :data="ruleForm" class="demo-ruleForm" :rules="rules" ref="ruleForm">
+                                    <el-form-item label="公示情况说明" prop="publicity">
+                                        <el-alert
+                                                title="填报说明"
+                                                style="margin-bottom: 10px"
+                                                type="warning"
+                                                description="1、对申报者本人公示情况进行说明，着重叙述申报人是否具备相应的专业技术你能力，是否能胜任相应专业技术工作;"
+                                                show-icon>
+                                        </el-alert>
+                                        <el-input rows="5" type="textarea" v-model="ruleForm.publicity"></el-input>
+                                    </el-form-item>
+                                </el-form>
+                            </el-main>
+
+                            <!--单位审核小组推荐意见-->
+                            <el-header style="padding: 0;height: auto">
+                                <div class="h1 clearfix">单位审核小组推荐意见</div>
+                            </el-header>
+                            <el-main style="padding:10px">
+                                <el-form :data="ruleForm" class="demo-ruleForm" :rules="rules" ref="ruleForm">
+                                    <el-form-item label="单位审核小组推荐意见" prop="groupRecommend">
+                                        <el-alert
+                                                title="填报说明"
+                                                style="margin-bottom: 10px"
+                                                type="warning"
+                                                description="1、单位审核小组推荐意见陈述，着重叙述申报人是否具备相应的专业技术你能力，是否能胜任相应专业技术工作;"
+                                                show-icon>
+                                        </el-alert>
+                                        <el-input rows="5" type="textarea" v-model="ruleForm.groupRecommend"></el-input>
+                                    </el-form-item>
+                                </el-form>
+                            </el-main>
+
+                            <!--答辩情况-->
+                            <el-header style="padding: 0;height: auto">
+                                <div class="h1 clearfix">答辩情况</div>
+                            </el-header>
+                            <el-main style="padding:10px">
+                                <el-form :data="ruleForm" class="demo-ruleForm" :rules="rules" ref="ruleForm">
+                                    <el-form-item label="答辩情况说明" prop="defence">
+                                        <el-alert
+                                                title="填报说明"
+                                                style="margin-bottom: 10px"
+                                                type="warning"
+                                                description="1、对申报人答辩情况进行说明，着重叙述申报人是否具备相应的专业技术你能力，是否能胜任相应专业技术工作;"
+                                                show-icon>
+                                        </el-alert>
+                                        <el-input rows="5" type="textarea" v-model="ruleForm.defence"></el-input>
+                                    </el-form-item>
+                                </el-form>
+                            </el-main>
+
+
+                            <div style="text-align: center">
+                                <el-button type="danger" style="margin-bottom:20px;font-size: 18px" @click="saveBtn">保 存</el-button>
+                            </div>
+
+                            <!--审核报送-->
+                            <el-header style="padding: 0;height: auto">
+                                <div class="h1 clearfix">审核报送</div>
+                            </el-header>
+                            <el-main style="padding:10px">
+                                <el-alert
+                                        title="填报说明"
+                                        style="margin-bottom: 10px"
+                                        type="error"
+                                        description="本人承诺对所填写的内容真实有效。如有弄虚作假，本人愿接受相关政策规定处理，按照审核条件或自治区有关规定的承担相应的责任。"
+                                        show-icon>
+                                </el-alert>
+                                <div style="text-align: center">
+                                    <el-button type="danger" style="margin-top: 20px;font-size: 18px" @click="Check">确认审核并报送</el-button>
+                                </div>
+                            </el-main>
+                        </el-container>
+                    </el-container>
+
+                    <!--弹窗内容-->
+                    <el-dialog title="审核报送" :visible.sync="dialogVisible">
+                         <el-tabs @tab-click="handleClick">
+                             <!--报送上级主管部门-->
+                          <!--   <el-tab-pane label="报送上级主管部门">
+                                 <el-form :data="toSuperior" class="demo-ruleForm" :rules="rules" ref="toSuperior">
+                                     <el-form-item label="本单位负责人" prop="theName">
+                                         <el-input  v-model="toSuperior.theName"></el-input>
+                                     </el-form-item>
+                                     <el-form-item label="报送上级主管部门名称" prop="SupName">
+                                         <el-input v-model="toSuperior.SupName"></el-input>
+                                     </el-form-item>
+                                 </el-form>
+                                 <div class="dialog-footer" style="text-align: right">
+                                     <el-button type="primary" icon="el-icon-share" @click="notifications">报 送</el-button>
+                                 </div>
+                             </el-tab-pane>-->
+
+                              <!--报送职改部门-->
+                             <el-tab-pane label="报送职改部门">
+                                 <el-form :data="toPost" class="demo-ruleForm" :rules="rules" ref="toPost">
+                                     <el-form-item label="本单位负责人" prop="thePerson">
+                                         <el-input  v-model="toPost.thePerson"></el-input>
+                                     </el-form-item>
+                                     <el-form-item label="报送职改部门名称" prop="postName">
+                                         <el-input v-model="toPost.postName"></el-input>
+                                     </el-form-item>
+                                 </el-form>
+                                 <div class="dialog-footer" style="text-align: right">
+                                     <el-button type="primary" icon="el-icon-share" @click="notifications">报 送</el-button>
+                                 </div>
+                             </el-tab-pane>
+
+                             <!--退回修改-->
+                             <el-tab-pane label="退回修改">
+                                 <el-form :data="toBack" ref="toBack" label-width="115px" class="demo-ruleForm" :rules="rules" class="demo-ruleForm">
+                                     <el-form-item label="申报个人:" prop="userName">
+                                         <el-input v-model="toBack.userName"></el-input>
+                                     </el-form-item>
+                                     <el-form-item label="回退类型:" prop="backType">
+                                         <el-radio-group v-model="toBack.backType">
+                                             <el-radio-button label="0" name="type" value="0">个人</el-radio-button>
+                                             <el-radio-button label="1" name="type" value="1">单位</el-radio-button>
+                                         </el-radio-group>
+                                     </el-form-item>
+
+                                     <el-form-item label="审核结果:" prop="examineResult">
+                                         <el-radio-group v-model="toBack.examineResult">
+                                             <el-radio label="0" value="0">退回修改</el-radio>
+                                             <el-radio label="1" value="1">审核不通过</el-radio>
+                                         </el-radio-group>
+                                     </el-form-item>
+
+                                     <el-form-item label="单位退回意见:" prop="backDesc">
+                                         <el-input rows="4" type="textarea" v-model="toBack.backDesc"></el-input>
+                                     </el-form-item>
+                                 </el-form>
+                                 <div class="dialog-footer" style="text-align: right">
+                                     <el-button type="danger" icon="el-icon-warning" @click="backBtn">退 回</el-button>
+                                 </div>
+                             </el-tab-pane>
+                         </el-tabs>
+                    </el-dialog>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/jquery-2.1.4/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../assets/bootstrap-3.3.7-dist/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../assets/js/vue.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script type="text/javascript">
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            dialogVisible:false,
+            ruleForm:{
+                applyId:1,
+                expertAppraisal:'',
+                director:'',
+                exaRecommend:'',
+                exaResult:'',
+                publicity:'',
+                groupRecommend:'',
+                defence:''
+            },
+            toSuperior:{
+               theName:'',
+               SupName:''
+            },
+            toPost:{
+               thePerson:'',
+                postName:''
+            },
+            toBack:{
+                applyId: 1,
+                userName:'',
+                backType:'',
+                examineResult:'',
+                backDesc:''
+            },
+            rules: {
+                director: [
+                    {required: true, message: '请输入单位负责人名称', trigger: 'blur'},
+                    {min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur'}
+                ],
+                exaRecommend:[
+                    {required: true,message:'请输入单位考核推荐意见',trigger:'blur'}
+                ],
+                exaResult:[
+                    {required:true,message:'请输入对申请人任期满考核结果陈述',trigger:'blur'}
+                ],
+                publicity:[
+                    {required:true,message:'请输入对申请人公示情况的说明',trigger:'blur'}
+                ],
+                groupRecommend:[
+                    {required:true,message:'请输入单位审核小组推荐意见',trigger:'blur'}
+                ],
+                defence: [
+                    {required:true,message:'请输入对申请人答辩情况说明',trigger:'blur'}
+                ],
+                thePerson:[
+                    {required:true,message:'请输入本单位负责人',trigger:'blur'}
+                ],
+                postName:[
+                    {required:true,message:'请输入报送的职改部门',trigger:'blur'}
+                ],
+                theName:[
+                    {required:true,message:'请输入本单位负责人',trigger:'blur'}
+                ],
+                SupName:[
+                    {required:true,message:'请输入报送的上级主管部门',trigger:'blur'}
+                ],
+                userName:[
+                    {required:true}
+                ],
+                backType:[
+                    {required:true}
+                ],
+                examineResult:[
+                    {required:true}
+                ],
+                backDesc:[
+                    {required:true,message:'请输入退回意见',trigger:'blur'}
+                ],
+
+            }
+        },
+        mounted(){
+
+        },
+        methods:{
+            toExamine:function () {
+                window.location.href = '../toExamine/Examine.html'
+            },
+            handleClick(tab, event) {
+                //console.log(tab, event);
+            },
+            Check:function () {
+                if(this.ruleForm.expertAppraisal.trim() === '' ||
+                    this.ruleForm.director.trim() === '' ||
+                    this.ruleForm.exaResult.trim() === '' ||
+                    this.ruleForm.exaRecommend.trim() === '' ||
+                    this.ruleForm.groupRecommend.trim() === '' ||
+                    this.ruleForm.publicity.trim() ==='' ||
+                    this.ruleForm.defence.trim() === ''){
+                    alert('输入不能为空！')
+                    return
+                }
+                this.dialogVisible = true
+            },
+            /*notifications*/
+            notifications:function () {
+
+                if(this.toPost.postName.trim() === '' || this.toPost.thePerson.trim() === ''){
+                    alert('输入不能为空！')
+                    return
+                }
+                var perId = window.localStorage.getItem("perId")
+                var postUrl = 'http://123.56.116.74:8080/zc/manager/agree?progress=1&applyId=' + perId
+                axios.post(postUrl).then(res => {
+                    //console.log(res)
+                    if(res.data.code === 200){
+                        this.dialogVisible = false
+                        this.$notify({
+                         title:'报送成功',
+                         type:'success'
+                        })
+                    }
+                }).catch(error => {
+                    console.log(error.message)
+                })
+            },
+            backBtn:function (){
+                //console.log(this.toBack)
+                if(this.toBack.userName.trim() === '' ||
+                this.toBack.backDesc.trim() === '' ||
+                this.toBack.backType === '' ||
+                this.toBack.examineResult === ''){
+                    alert('输入不能为空！')
+                    return
+                }
+
+                var data = {
+                    applyId:1,
+                    backDesc:this.toBack.backDesc,
+                    backType:parseInt(this.toBack.backType),
+                    examineResult:parseInt(this.toBack.examineResult),
+                    userName:this.toBack.userName
+                }
+                var backUrl = 'http://123.56.116.74:8080/zc/manager/back'
+                axios.post(backUrl,data).then(res => {
+                   //console.log(res.data)
+                    if(res.data.code === 200){
+                        this.dialogVisible = false
+                        this.$notify({
+                            title:'回退成功！',
+                            type:'success'
+                        })
+                    }
+                }).catch(error => {
+                    console.log(error.message)
+                })
+            },
+            saveBtn:function (){
+
+                if(this.ruleForm.expertAppraisal.trim() === '' ||
+                    this.ruleForm.director.trim() === '' ||
+                    this.ruleForm.exaResult.trim() === '' ||
+                    this.ruleForm.exaRecommend.trim() === '' ||
+                    this.ruleForm.groupRecommend.trim() === '' ||
+                    this.ruleForm.publicity.trim() ==='' ||
+                    this.ruleForm.defence.trim() === ''){
+                    alert('输入不能为空！')
+                    return
+                }
+                //console.log(this.ruleForm)
+                var saveRrl = 'http://123.56.116.74:8080/zc/manager/ins_exa'
+                axios.post(saveRrl,this.ruleForm).then(res => {
+                    //console.log(res.data)
+                    if(res.data.code === 200){
+                        alert('保存成功！')
+                    }
+                }).catch(error => {
+                    console.log(error.message)
+                })
+            }
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="9e8a3fdd-5e09-450d-a913-0e55ea50fb7f" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="CSS File" />
+        <option value="HTML File" />
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1kPxhTYcYuPYLaVzB4lBnM1uA17" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration>C:\Users\Administrator\AppData\Roaming\Subversion</configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9e8a3fdd-5e09-450d-a913-0e55ea50fb7f" name="Default Changelist" comment="" />
+      <created>1605616147168</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1605616147168</updated>
+      <workItem from="1605616148253" duration="2928000" />
+      <workItem from="1605672617458" duration="13310000" />
+      <workItem from="1605759154756" duration="9824000" />
+      <workItem from="1605782372423" duration="9590000" />
+      <workItem from="1605843716750" duration="18071000" />
+      <workItem from="1606048989540" duration="359000" />
+      <workItem from="1606049456554" duration="85000" />
+      <workItem from="1606115324547" duration="14055000" />
+      <workItem from="1606199952522" duration="1102000" />
+      <workItem from="1606218792364" duration="7697000" />
+      <workItem from="1606285314861" duration="7176000" />
+      <workItem from="1606373994036" duration="2888000" />
+      <workItem from="1606379793064" duration="19000" />
+      <workItem from="1606546422456" duration="1429000" />
+      <workItem from="1606548277785" duration="9880000" />
+      <workItem from="1607087447895" duration="45000" />
+      <workItem from="1607839543804" duration="3009000" />
+      <workItem from="1608021213699" duration="5884000" />
+      <workItem from="1608105983546" duration="4165000" />
+      <workItem from="1609857705118" duration="381000" />
+      <workItem from="1610088914439" duration="6791000" />
+      <workItem from="1610266802614" duration="45000" />
+      <workItem from="1610347669857" duration="492000" />
+      <workItem from="1610427608632" duration="927000" />
+      <workItem from="1610781871907" duration="651000" />
+      <workItem from="1610944909313" duration="505000" />
+      <workItem from="1612100386917" duration="3726000" />
+      <workItem from="1612182539622" duration="3765000" />
+      <workItem from="1612255343464" duration="630000" />
+      <workItem from="1612342761283" duration="1095000" />
+      <workItem from="1612945030109" duration="224000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="463" y="119" key="FileChooserDialogImpl" timestamp="1612182686221">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728/1366.0.1920.1040@0.0.1366.728" timestamp="1612182686221" />
+    <state x="2017" y="170" key="FileChooserDialogImpl/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1610945414792" />
+    <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1610266851433" />
+    <state x="680" y="164" key="run.anything.popup" timestamp="1606375333679">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="680" y="164" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1606375333679" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1606227755972">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1606227755972" />
+  </component>
+</project>

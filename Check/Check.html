@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>职称审核</title>
+    <link rel="stylesheet" href="../assets/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/common.css">
+    <link rel="stylesheet" href="check.css">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <style>
+        .navbar .container {
+            width: 100%;
+        }
+        .container {
+            width: 100%;
+            padding-right: 10px;
+            padding-left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <!--start:header-->
+    <div class="header">
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container clearfix" style="background-color: #1A56A8;padding-left: 10px">
+                    <a href="">
+                        <img src="../assets/img/logo_zc.png" alt="">
+                    </a>
+                </div>
+            </div>
+            <div class="menu">
+                <div class="container clearfix">
+                    <ul class="pull-left " role="tablist">
+                        <li >
+                            <a href="" class="link">职称评审</a>
+                        </li>
+                        <li >
+                            <a href="Check.html" class="link">职称审核</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="main">
+            <div class="container clearfix">
+                <div id="app" class="tab-content">
+                   <div class="container-middle">
+                       <div class="h1 clearfix">职称审核</div>
+                       <div class="box clearfix" style="padding:10px;">
+                           <el-form :inline="true" :model="formInline" class="demo-form-inline">
+                               <el-form-item label="申报姓名" class="formItem">
+                                   <el-input v-model="formInline.user" style="width: 217px"></el-input>
+                               </el-form-item>
+                               <el-form-item label="身份证号" class="formItem">
+                                   <el-input v-model="formInline.id" style="width: 217px"></el-input>
+                               </el-form-item>
+                               <el-form-item label="申报状态" class="formItem">
+                                   <el-select v-model="formInline.state" placeholder="选择">
+                                      <!-- <el-option label="全部" value="全部"></el-option>-->
+                                       <el-option label="待审核" value="2"></el-option>
+                                       <el-option label="已审核" value="20"></el-option>
+                                       <el-option label="审核不通过" value="21"></el-option>
+                                      <!-- <el-option label="已报送上级主管部门" value="已报送上级主管部门"></el-option>
+                                       <el-option label="已报送职改办" value="已报送职改办"></el-option>
+                                       <el-option label="退回个人修改" value="退回个人修改"></el-option>-->
+                                   </el-select>
+                               </el-form-item>
+                               <el-form-item label="申报级别" class="formItem">
+                                   <el-select v-model="formInline.level" placeholder="不限">
+                                       <el-option label="初级" value="初级"></el-option>
+                                       <el-option label="中级" value="中级"></el-option>
+                                       <el-option label="副高级" value="副高级"></el-option>
+                                       <el-option label="正高级" value="正高级"></el-option>
+                                   </el-select>
+                               </el-form-item>
+                               <el-form-item label="申报职称" class="formItem">
+                                   <el-input v-model="formInline.title" style="width: 217px"></el-input>
+                               </el-form-item>
+                               <el-form-item label="申报评审会" class="formItem">
+                                   <el-input v-model="formInline.meeting"></el-input>
+                               </el-form-item>
+                               <el-form-item label="申报年度" class="formItem">
+                                   <el-select v-model="formInline.year" placeholder="">
+                                       <el-option label="2018" value="2018"></el-option>
+                                       <el-option label="2019" value="2019"></el-option>
+                                       <el-option label="2020" value="2020"></el-option>
+                                   </el-select>
+                               </el-form-item>
+                               <el-form-item class="formItem">
+                                   <el-button type="primary" icon="el-icon-search" @click="search">查询</el-button>
+                               </el-form-item>
+                           </el-form>
+                           <el-row>
+                                <el-col :span="24">
+                                    <!--<el-alert title="" type="error" description="" style="margin:10px 0;" :closabel="false">
+                                        <template>
+                                            <i class="el-alert__icon el-icon-warning is-big"></i>
+                                            <div class="el-alert__content" style="display:inline-block">
+                                               <span class="el-alert__title is-bold">温馨提示</span>
+                                                <p class="el-alert__description">
+                                                    以下列表默认显示申报状态为“待审核”的信息，若要查看其它信息，请修改筛选条件进行查询。
+                                                </p>
+                                            </div>
+                                        </template>
+
+                                    </el-alert>-->
+                                    <el-alert
+                                            style="margin: 10px 0"
+                                            title="温馨提示"
+                                            type="error"
+                                            description="以下列表默认显示申报状态为“待审核”的信息，若要查看其它信息，请修改筛选条件进行查询。"
+                                            show-icon>
+                                    </el-alert>
+                                </el-col>
+                            </el-row>
+                           <el-row>
+                               <el-table
+                                       :data="tableData"
+                                       border
+                                       style="width: 100%">
+                                   <el-table-column type="selection" prop="checkbox"></el-table-column>
+                                   <el-table-column
+                                           prop="applyDate"
+                                           label="申报年度">
+                                   </el-table-column>
+                                   <el-table-column
+                                           prop="applyTime"
+                                           label="申报日期">
+                                   </el-table-column>
+                                   <!--<el-table-column
+                                           prop="date"
+                                           label="数据报送来源">
+                                   </el-table-column>-->
+                                   <el-table-column
+                                           prop="applyTitle"
+                                           label="申报职称">
+                                   </el-table-column>
+                                   <el-table-column
+                                           prop="applyGrade"
+                                           label="职称级别">
+                                   </el-table-column>
+                                   <el-table-column
+                                           prop="userName"
+                                           label="姓名">
+                                   </el-table-column>
+                                   <el-table-column
+                                           prop="reviewMeet"
+                                           label="评审会">
+                                   </el-table-column>
+                                   <el-table-column
+                                           prop="reviewProgress"
+                                           label="状态">
+                                   </el-table-column>
+                                   <el-table-column label="操作" width="150px">
+                                       <template slot-scope="scope">
+                                           <el-button
+                                                   size="mini"
+                                                   type="danger"
+                                                   @click="handleEdit(scope.$index, scope.row)">审核</el-button>
+                                           <el-button
+                                                   size="mini"
+                                                   type="primary"
+                                                   @click="handleProgress(scope.$index,scope.row)">进度</el-button>          <!--handleProgress(scope.$index, scope.row)-->
+                                       </template>
+                                   </el-table-column>
+                               </el-table>
+                               <el-button type="danger" style="margin: 10px 0;float: right">批量报送</el-button>
+                           </el-row>
+
+                           <!--进度弹窗-->
+                           <el-dialog title="申报进度" :visible.sync="dialogProgressVisible" size="large" top="1%" width="90%">
+                               <el-steps :active="curProgress" align-center>
+                                   <el-step title="个人申报"></el-step>
+                                   <el-step title="单位受理"></el-step>
+                                   <el-step title="报送职改办受理"></el-step>
+                               </el-steps>
+                              <!-- <el-table border style="margin:20px 0">
+                                   <el-table-column label="操作时间">
+
+                                   </el-table-column>
+                                   <el-table-column label="业务步骤">
+
+                                   </el-table-column>
+                                   <el-table-column label="处理结果及意见">
+
+                                   </el-table-column>
+                                   <el-table-column label="审核单位">
+
+                                   </el-table-column>
+                                   <el-table-column label="状态">
+                                       <el-button size="mini" type="success" plain disabled>成功</el-button>
+                                   </el-table-column>
+                               </el-table>-->
+
+                               <div slot="footer" class="dialog-footer">
+                                   <el-button @click="dialogProgressVisible = false">确定</el-button>
+                               </div>
+                           </el-dialog>
+                           <el-row>
+                               <el-pagination
+                                       style="float:right;"
+                                       @size-change="handleSizeChange"
+                                       @current-change="handleCurrentChange"
+                                       :current-page="currentPage1"
+                                       :page-sizes="[10, 20, 30, 40]"
+                                       :page-size="10"
+                                       layout="total, sizes, prev, pager, next, jumper"
+                                       :total="this.tableData.length">
+                               </el-pagination>
+                           </el-row>
+                       </div>
+                   </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="../assets/jquery-2.1.4/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../assets/bootstrap-3.3.7-dist/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../assets/js/vue.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="../assets/js/global.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            //分页
+            currentPage1: 1,
+            curProgress:0,
+            dialogProgressVisible:false,
+            formInline: {
+                user: '',
+                id: '',
+                state:'',
+                level:'',
+                title:'',
+                meeting:'',
+                year:''
+            },
+            //表格
+            tableData:[
+               /* {dialogProgressVisible:false,year:'2018',data:'2016-05-02',date:'人才库',title:'工程师',level:'中级',person:'李明',meeting:'中级评审会',state:'待审核'},*/
+               /* { applyId: 1,applyData:'2018',applyTime:'2016-05-02',date:'人才库',applyTitle:'工程师',applyGrade:'中级',userName:'李明',reviewMeet:'中级评审会',reviewProgress:'待审核'}*/
+
+            ]
+        },
+        mounted(){
+
+           /*列表获取*/
+            var lisUrl = 'http://123.56.116.74:8080/zc/manager/list?limit=10&page=1'
+            axios.get(lisUrl).then(res => {
+               // console.log(res.data.data)
+                this.tableData = res.data.data
+            }).catch(error => {
+                console.log(error.data.message)
+            })
+        },
+       /* computed:{
+            Progress: {
+                get:function () {
+                    return this.curProgress
+                    console.log(this.curProgress)
+                },
+                set:function () {
+                    //console.log(this.tableData)
+
+                }
+            }
+        },*/
+        /*updated(){
+            this.curProgress = window.localStorage.getItem('curPro')
+        },*/
+        methods:{
+            //查询
+            search:function () {
+                var seaUrl = 'http://123.56.116.74:8080/zc/manager/list?limit=10&page=1'
+                if(this.formInline.year !== ''){
+                    seaUrl += '&applyDate=' + parseInt(this.formInline.year)
+                }
+                if(this.formInline.level !== ''){
+                    seaUrl += '&applyGrade=' + this.formInline.level
+                }
+                if(this.formInline.state !== ''){
+                    seaUrl += '&applyProgress=' + parseInt(this.formInline.state)
+                }
+                if (this.formInline.title !== ''){
+                    seaUrl += '&applyTitle=' + this.formInline.title
+                }
+                if(this.formInline.id !== ''){
+                    seaUrl += '&idCard=' + this.formInline.id
+                }
+                if(this.formInline.meeting !== ''){
+                    seaUrl += '&reviewMeet=' + this.formInline.meeting
+                }
+                if(this.formInline.user !== ''){
+                    seaUrl += '&userName=' + this.formInline.user
+                }
+                axios.get(seaUrl).then(res => {
+                    console.log(res.data)
+                   this.tableData = res.data.data
+                }).catch(error => {
+                    //console.log(error.data.message)
+                })
+            },
+            //表格
+            handleEdit(index, row){
+                //console.log(index, row);
+               // console.log(this.tableData[index])
+                var id = this.tableData[index].applyId
+                window.localStorage.setItem("perId",id)
+                //console.log('id' + id)
+               window.location.href = '../ToExamine/Examine.html?id=' + id
+            },
+
+            //进度
+            handleProgress(index, row) {
+                //console.log(index, row);
+                this.dialogProgressVisible = true
+                //console.log(index,row)
+                if(row.reviewProgress == '已审核'){
+                    this.curProgress = 3
+                }else if(row.reviewProgress == '未审核'){
+                    this.curProgress = 2
+                }else if(row.reviewProgress == '审核不通过'){
+                    this.curProgress = 1
+                }
+            },
+            //分页
+            handleSizeChange(val) {
+                console.log(`每页 ${val} 条`);
+            },
+            handleCurrentChange(val) {
+                console.log(`当前页: ${val}`);
+            }
+        },
+    })
+</script>
+</body>
+</html>

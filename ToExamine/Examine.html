@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>审核</title>
+    <link rel="stylesheet" href="../assets/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/common.css">
+    <link rel="stylesheet" href="examine.css">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <style>
+        .navbar .container {
+            width: 100%;
+        }
+        .container {
+            width: 100%;
+            padding-right: 10px;
+            padding-left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <!--start:header-->
+    <div class="header">
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container clearfix" style="background-color: #1A56A8;padding-left: 10px">
+                    <a href="">
+                        <img src="../assets/img/logo_zc.png" alt="">
+                    </a>
+                </div>
+            </div>
+            <div class="menu">
+                <div class="container clearfix">
+                    <ul class="pull-left " role="tablist">
+                        <li >
+                            <a href="#" class="link">职称评审</a>
+                        </li>
+                        <li >
+                            <a href="../Check/Check.html" class="link">职称审核</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="main">
+            <div class="container clearfix">
+                <div id="app" class="tab-content">
+                    <el-container >
+                        <el-aside width="250px" style="border-bottom: 1px solid #E6E6E6;border-left: 1px solid #E6E6E6;position: fixed">
+                            <div class="h1 clearfix">审核操作</div>
+                            <el-menu :default-openeds="['1']" default-active="1-1">
+                                <el-submenu index="1">
+                                    <template slot="title"><i class="el-icon-user"></i>个人填写部分</template>
+                                    <el-menu-item index="1-1">个人资料</el-menu-item>
+                                   <!-- <el-menu-item index="1-2">主要经历</el-menu-item>
+                                    <el-menu-item index="1-3">人才引进相关材料</el-menu-item>
+                                    <el-menu-item index="1-4">论文、著作</el-menu-item>
+                                    <el-menu-item index="1-5">业绩成果</el-menu-item>
+                                    <el-menu-item index="1-6">业绩专利</el-menu-item>
+                                    <el-menu-item index="1-7">从业或职(执)业资格</el-menu-item>
+                                    <el-menu-item index="1-8">国(境)工作或研究材料</el-menu-item>
+                                    <el-menu-item index="1-9">工作总结</el-menu-item>
+                                    <el-menu-item index="1-10">其他材料</el-menu-item>-->
+                                </el-submenu>
+                                <el-submenu index="2">
+                                    <template slot="title"><i class="el-icon-office-building"></i>单位填写部分</template>
+                                    <el-menu-item index="2-1" @click="toCompany">单位意见</el-menu-item>
+                                    <!--<el-menu-item index="2-2">基层单位考核推荐意见</el-menu-item>
+                                    <el-menu-item index="2-3">任职期满任职期考核结果</el-menu-item>
+                                    <el-menu-item index="2-4">公示情况</el-menu-item>
+                                    <el-menu-item index="2-5">单位审议小组审议推荐意见</el-menu-item>
+                                    <el-menu-item index="2-6">专家鉴定意见</el-menu-item>
+                                    <el-menu-item index="2-7">答辩情况</el-menu-item>
+                                    <el-menu-item index="2-8">审核报送</el-menu-item>-->
+                                </el-submenu>
+                            </el-menu>
+                        </el-aside>
+                         <el-aside width="250px"></el-aside>
+                        <el-container style="border: 1px solid #eee;margin-left: 10px;">
+                            <!--个人资料-->
+                            <el-header style="padding: 0;height: auto">
+                                <div class="h1 clearfix">个人资料</div>
+                            </el-header>
+                            <el-main style="padding:10px">
+                                <div class="box clearfix" >
+                                    <el-form :inline="true" :label-position="labelPosition" label-width="130px">
+                                        <el-form-item label="单位:">
+                                            <el-input v-model="personData.company"></el-input>
+                                        </el-form-item>
+                                        <el-form-item label="个人身份性质:">
+                                            <el-input v-model="personData.identity"></el-input>
+                                        </el-form-item>
+                                        <el-form-item label="评审年度:">
+                                            <el-input v-model="personData.applyDate"></el-input>
+                                        </el-form-item>
+                                        <el-form-item label="姓名:">
+                                            <el-input v-model="personData.username"></el-input>
+                                        </el-form-item>
+                                        <!--<el-form-item label="性别:">
+                                            <el-input ></el-input>
+                                        </el-form-item>-->
+                                        <el-form-item label="民族:">
+                                            <el-input v-model="personData.nation"></el-input>
+                                        </el-form-item>
+                                        <el-form-item label="证件号码:">
+                                            <el-input v-model="personData.idNumber"></el-input>
+                                        </el-form-item>
+                                        <el-form-item label="出生年月:">
+                                            <el-input v-model="personData.birthday"></el-input>
+                                        </el-form-item>
+                                        <!--<el-form-item label="填表时间:">
+                                            <el-input ></el-input>
+                                        </el-form-item>-->
+                                        <el-form-item label="参加工作时间:">
+                                            <el-input v-model="personData.startWorkTime"></el-input>
+                                        </el-form-item>
+                                        <el-form-item label="专业技术年限:">
+                                            <el-input v-model="personData.workTime"></el-input>
+                                        </el-form-item>
+                                        <el-form-item label="参加评审会:">
+                                            <el-input v-model="personData.reviewMeet"></el-input>
+                                        </el-form-item>
+                                        <el-form-item label="拟评职称系列:">
+                                            <el-input v-model="personData.applySeries"></el-input>
+                                        </el-form-item>
+                                        <el-form-item label="拟评专业:">
+                                            <el-input v-model="personData.applyTitle"></el-input>
+                                        </el-form-item>
+                                        <el-form-item label="拟评专业技术资格:">
+                                            <el-input v-model="personData.applySeries+personData.applyGrade+personData.applyTitle"></el-input>
+                                        </el-form-item>
+                                        <el-form-item label="行政职务:">
+                                            <el-input v-model="personData.position"></el-input>
+                                        </el-form-item>
+                                        <el-form-item label="行政职务任命时间:">
+                                            <el-input v-model="personData.positionDate"></el-input>
+                                        </el-form-item>
+                                        <el-form-item label="行政职务说明:">
+                                            <el-input v-model="personData.positionDesc"></el-input>
+                                        </el-form-item>
+                                        <el-form-item label="联系电话:">
+                                            <el-input v-model="personData.phone"></el-input>
+                                        </el-form-item>
+                                        <el-form-item label="电子邮箱:">
+                                            <el-input v-model="personData.email"></el-input>
+                                        </el-form-item>
+                                        <el-form-item label="档案所在地机构:">
+                                            <el-input v-model="personData.fileMechanism"></el-input>
+                                        </el-form-item>
+                                        <el-form-item label="政治面貌:">
+                                            <el-input v-model="personData.politicalOutlook"></el-input>
+                                        </el-form-item>
+                                        <el-form-item label="籍贯:">
+                                            <el-input v-model="personData.nativePlace"></el-input>
+                                        </el-form-item>
+                                        <el-form-item label="联系地址:">
+                                            <el-input v-model="personData.contactAddress"></el-input>
+                                        </el-form-item>
+                                    </el-form>
+                                    <el-row>
+                                        <el-col :span="8" style="padding: 10px">
+                                            <el-card class="box-card">
+                                                <div slot="header" class="clearfix">
+                                                    <h4>身份证正面图片</h4>
+                                                </div>
+                                                <img :src="personData.idFront" class="image">
+                                            </el-card>
+                                        </el-col>
+                                        <el-col :span="8" style="padding: 10px">
+                                            <el-card class="box-card">
+                                                <div slot="header" class="clearfix">
+                                                    <h4>身份证反面图片</h4>
+                                                </div>
+                                                <img :src="personData.idBack" class="image">
+                                            </el-card>
+                                        </el-col>
+                                        <el-col :span="8" style="padding: 10px">
+                                            <el-card class="box-card">
+                                                <div slot="header" class="clearfix">
+                                                    <h4>近期免冠2寸照片</h4>
+                                                </div>
+                                                <img :src="personData.idPhoto" class="image">
+                                            </el-card>
+                                        </el-col>
+                                    </el-row>
+                                </div>
+                            </el-main>
+
+                            <!--学历情况-->
+                            <el-header style="padding: 0;height: auto;margin-top: 10px">
+                                <div class="h1 clearfix">学历情况</div>
+                            </el-header>
+                            <el-main style="padding:10px;margin-bottom: 20px">
+                                <div class="box clearfix" >
+                                    <el-table :data="person.education" border style="width: 100%">
+                                        <el-table-column prop="graduationTime" label="毕业时间"></el-table-column>
+                                        <el-table-column prop="eduProject" label="学历项目"></el-table-column>
+                                        <el-table-column prop="eduDegree" label="学历"></el-table-column>
+                                        <el-table-column prop="school" label="毕业学校"></el-table-column>
+                                        <el-table-column prop="major" label="专业"></el-table-column>
+                                        <el-table-column prop="eduLevel" label="学位"></el-table-column>
+                                    </el-table>
+                                </div>
+                            </el-main>
+
+                            <!--主要经历-->
+                            <el-header style="padding: 0;height: auto">
+                                <div class="h1 clearfix">主要经历</div>
+                            </el-header>
+                            <el-main style="padding:10px;margin-bottom: 20px">
+                                <div class="box clearfix" >
+                                    <el-table :data="person.experience" border style="width: 100%">
+                                        <el-table-column prop="startTime" label="开始时间"></el-table-column>
+                                        <el-table-column prop="endTime" label="截止时间"></el-table-column>
+                                        <el-table-column prop="company" label="工作单位"></el-table-column>
+                                        <el-table-column prop="workRecord" label="从事何种专业技术工作"></el-table-column>
+                                        <el-table-column prop="job" label="任何职"></el-table-column>
+                                        <el-table-column prop="witness" label="证明人"></el-table-column>
+                                    </el-table>
+                                </div>
+                            </el-main>
+
+                            <!--人才引进相关材料-->
+                            <el-header style="padding: 0;height: auto">
+                                <div class="h1 clearfix">人才引进相关材料</div>
+                            </el-header>
+                            <el-main style="padding:10px;margin-bottom: 20px">
+                                <div class="box clearfix" >
+                                    <el-table :data="person.material" border style="width: 100%">
+                                        <el-table-column prop="introId" label="序号" width="50px"></el-table-column>
+                                        <el-table-column prop="fileName" label="材料名称"></el-table-column>
+                                    </el-table>
+                                </div>
+                            </el-main>
+
+                            <!--论文、著作-->
+                            <el-header style="padding: 0;height: auto">
+                                <div class="h1 clearfix">论文、著作</div>
+                            </el-header>
+                            <el-main style="padding:10px;margin-bottom: 20px">
+                                <div class="box clearfix" >
+                                    <el-table :data="person.thesis" border style="width: 100%">
+                                        <el-table-column prop="publishTime" label="发表时间"></el-table-column>
+                                        <el-table-column prop="paperType" label="论文类别"></el-table-column>
+                                        <el-table-column prop="paperTitle" label="论文著作名称"></el-table-column>
+                                        <el-table-column prop="publication" label="登载刊物名称、刊号"></el-table-column>
+                                        <el-table-column prop="authorRole" label="角色"></el-table-column>
+                                        <el-table-column prop="isRep" label="是否代表作"></el-table-column>
+                                    </el-table>
+                                </div>
+                            </el-main>
+
+                            <!--业绩成果-->
+                            <el-header style="padding: 0;height: auto">
+                                <div class="h1 clearfix">业绩成果</div>
+                            </el-header>
+                            <el-main style="padding:10px;margin-bottom: 20px">
+                                <div class="box clearfix" >
+                                    <el-table :data="person.achievements" border style="width: 100%">
+                                        <el-table-column prop="startTime" label="开始时间"></el-table-column>
+                                        <el-table-column prop="endTime" label="截止时间"></el-table-column>
+                                        <el-table-column prop="projectGrade" label="项目级别(规模)"></el-table-column>
+                                        <el-table-column prop="achName" label="业绩名称(项目、专业等)"></el-table-column>
+                                    </el-table>
+                                </div>
+                            </el-main>
+
+                            <!--业绩奖项-->
+                            <el-header style="padding: 0;height: auto">
+                                <div class="h1 clearfix">业绩奖项</div>
+                            </el-header>
+                            <el-main style="padding:10px;margin-bottom: 20px">
+                                <div class="box clearfix" >
+                                    <el-table :data="person.prize" border style="width: 100%">
+                                        <el-table-column prop="projectName" label="项目名称"></el-table-column>
+                                        <el-table-column prop="awardGrade" label="奖励等级"></el-table-column>
+                                        <el-table-column prop="getTime" label="授予时间"></el-table-column>
+                                        <el-table-column prop="getCompany" label="授予机构"></el-table-column>
+                                    </el-table>
+                                </div>
+                            </el-main>
+
+                            <!--业绩专利-->
+                            <el-header style="padding: 0;height: auto">
+                                <div class="h1 clearfix">业绩专利</div>
+                            </el-header>
+                            <el-main style="padding:10px;margin-bottom: 20px">
+                                <div class="box clearfix" >
+                                    <el-table :data="person.patent" border style="width: 100%">
+                                        <el-table-column prop="patentName" label="专利名称"></el-table-column>
+                                        <el-table-column prop="patentType" label="专利类型"></el-table-column>
+                                        <el-table-column prop="getTime" label="取得时间"></el-table-column>
+                                    </el-table>
+                                </div>
+                            </el-main>
+
+                            <!--从业或职(执)业资格-->
+                            <el-header style="padding: 0;height: auto">
+                                <div class="h1 clearfix">从业或职(执)业资格</div>
+                            </el-header>
+                            <el-main style="padding:10px;margin-bottom: 20px">
+                                <div class="box clearfix" >
+                                    <el-table :data="person.certificate" border style="width: 100%">
+                                        <el-table-column prop="quaName" label="资格名称"></el-table-column>
+                                        <el-table-column prop="getTime" label="取得时间"></el-table-column>
+                                        <el-table-column prop="getCompany" label="批准机构"></el-table-column>
+                                        <el-table-column prop="major" label="专业名称"></el-table-column>
+                                        <el-table-column prop="quaNumber" label="证书编号"></el-table-column>
+                                    </el-table>
+                                </div>
+                            </el-main>
+
+                            <!--国(境)工作或研究材料-->
+                            <el-header style="padding: 0;height: auto">
+                                <div class="h1 clearfix">国(境)工作或研究材料</div>
+                            </el-header>
+                            <el-main style="padding:10px;margin-bottom: 20px">
+                                <div class="box clearfix" >
+                                    <el-table :data="person.national" border style="width: 100%">
+                                        <el-table-column prop="startTime" label="开始时间"></el-table-column>
+                                        <el-table-column prop="endTime" label="截止时间"></el-table-column>
+                                        <el-table-column prop="company" label="工作单位"></el-table-column>
+                                        <el-table-column prop="job" label="职务岗位"></el-table-column>
+                                    </el-table>
+                                </div>
+                            </el-main>
+
+                            <!--工作总结-->
+                            <el-header style="padding: 0;height: auto">
+                                <div class="h1 clearfix">工作总结</div>
+                            </el-header>
+                            <el-main style="padding:10px;margin-bottom: 20px">
+                                <div class="box clearfix" >
+                                    <el-card class="box-card">
+                                        {{person.summary}}
+                                    </el-card>
+                                </div>
+                            </el-main>
+
+                            <!--其他材料-->
+                            <el-header style="padding: 0;height: auto">
+                                <div class="h1 clearfix">其他材料</div>
+                            </el-header>
+                            <el-main style="padding:10px;margin-bottom: 20px">
+                                <div class="box clearfix" >
+                                    <el-table :data="person.another" border style="width: 100%">
+                                        <el-table-column prop="fileId" label="序号" width="50px"></el-table-column>
+                                        <el-table-column prop="fileName" label="标题"></el-table-column>
+                                    </el-table>
+                                </div>
+                            </el-main>
+
+                            <!--确定审核-->
+                            <el-header style="padding: 0;height: auto">
+                                <div class="h1 clearfix">确定审核</div>
+                            </el-header>
+                            <el-main style="padding:10px;margin-bottom: 20px">
+                                <div class="box clearfix" >
+                                    <el-alert
+                                            title="个人资料核查"
+                                            type="error"
+                                            description="请仔细浏览申报人资料无误后，确认审核"
+                                            show-icon>
+                                    </el-alert>
+                                    <div style="text-align: center">
+                                        <el-button type="danger" style="margin-top: 20px;font-size: 18px" @click="toCompany">审核无误</el-button>
+                                    </div>
+
+                                </div>
+                            </el-main>
+                        </el-container>
+                    </el-container>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/jquery-2.1.4/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../assets/bootstrap-3.3.7-dist/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../assets/js/vue.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="../assets/js/global.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    var vm = new Vue({
+        el:'#app',
+        data(){
+            return {
+                labelPosition:'right',
+                personData:{
+                    company:'',
+                    identity:'',
+                    applyDate:'',
+                    nation:'',
+                    idNumber:'',
+                    birthday:'',
+                    startWorkTime:'',
+                    workTime:'',
+                    reviewMeet:'',
+                    applySeries:'',
+                    applyGrade:'',
+                    applyTitle:'',
+                    position:'',
+                    positionDate:'',
+                    positionDesc:'',
+                    phone:'',
+                    email:'',
+                    fileMechanism:'',
+                    politicalOutlook:'',
+                    nativePlace:'',
+                    contactAddress:'',
+                    idFront:'',
+                    idBack:'',
+                    idPhoto:'',
+                   // professionalQua:this.applySeries + this.applyGrade + this.applyTitle
+                },
+
+                person:{
+                    education:[
+                        {graduationTime:'2020-02',eduProject:'第一学历',eduDegree:'本科',school:'桂电',major:'计科',eduLevel:'学士'}
+                    ],
+                    experience:[
+                        {startTime:'2020-2',endTime:'2020-5',company:"桂电",workRecord:'教师',job:'教授',witness:'王五'}
+                    ],
+                    material:[
+                        {introIn:1,fileName:'证书'},
+                        {introIn:2,fileName:'奖状'}
+                    ],
+                    thesis:[
+                        {publishTime:'2020-2',paperTyle:'国内核心期刊',paperTitle:'毕业论文',publication:'1245686',authorRole:'独著',isRep:'是'}
+                    ],
+                    achievements:[
+                        {startTime:"2020-5",endTime:'2020-8',projectGrade:'国家级',achName:'机器学习'}
+                    ],
+                    prize:[
+                        {projectName:'国家人才奖',awardGrade:"国家级",getTime:'2020-5',getCompany:'国家教育局'}
+                    ],
+                    patent:[
+                        {patentName:'芯片发明专利',patentType:'发明',getTime:"2020-9"}
+                    ],
+                    certificate:[
+                        {quaName:"教师资格证",getTime:'2017-11-15',getCompany:"桂林市教育局",major:'计算机科学与技术',quaNumber:"0001111111"}
+                    ],
+                    national:[
+                        {startTime:'2015-5-1',endTime:'2018-5-6',company:'桂电',job:'教师'}
+                    ],
+                    summary:'暂无总结',
+                    another:[
+                        {fileId:1,fileName:'证书'},
+                        {fileId:2,fileName:'奖状'}
+                    ]
+                }
+            }
+
+        },
+        mounted() {
+            var perId = window.localStorage.getItem("perId")
+            //个人基本信息
+           /* $.ajax({
+                type:'GET',
+                url:'http://123.56.116.74:8080/zc/pinshen/base_01/1',
+                dataType:'json',
+                success:(res) => {
+                    console.log(res.data)
+                    this.personData = res.data
+                    console.log('personData',this.personData)
+                    this.imgFront = res.data.idFront
+                    this.imgBack = res.data.idBack
+                    this.perImg = res.data.idPhoto
+                },
+                error:function (error) {
+                    console.log('请求错误')
+                }
+            })*/
+            var perUrl = 'http://123.56.116.74:8080/zc/pinshen/base_01/' + perId
+            axios.get(perUrl).then(res => {
+                 //console.log(res.data.data)
+                 this.personData = res.data.data
+            }).catch(error => {
+               console.log(error.data.message)
+            })
+
+            //学历情况
+            var eduUrl = 'http://123.56.116.74:8080/zc/pinshen/base_02/'+ perId
+            axios.get(eduUrl).then(res => {
+                //console.log(res.data)
+                this.person.education = res.data.data
+            }).catch(error => {
+                console.log(error.data.message)
+            })
+
+            /*主要经历*/
+            var expUrl = 'http://123.56.116.74:8080/zc/pinshen/base_03/'+ perId
+            axios.get(expUrl).then(res => {
+                //console.log(res.data.data)
+                this.person.experience = res.data.data
+            }).catch(error => {
+                console.log(error.data.message)
+            })
+
+            /*人才引进相关材料*/
+            var matUrl = 'http://123.56.116.74:8080/zc/pinshen/base_04/'+ perId
+            axios.get(matUrl).then(res => {
+               // console.log(res.data.data)
+                this.person.material = res.data.data
+            }).catch(error => {
+                console.log(error.data.message)
+            })
+
+            /*论文、著作*/
+            var theUrl = 'http://123.56.116.74:8080/zc/pinshen/base_05/'+ perId
+            axios.get(theUrl).then(res => {
+               // console.log(res.data.data)
+                this.person.thesis = res.data.data
+                /*if(res.data.data.isRep === 1){
+                    this.person.thesis.isRep = '是'
+                }else{
+                    this.person.thesis.isRep = '否'
+                }
+                this.person.thesis = res.data.data.map((item) => ({
+                    publishTime : item.publishTime,
+                    paperType : item.paperType,
+                    paperTitle:item.paperTitle,
+                    publication:item.publication,
+                    authorRole:item.authorRole
+                }))*/
+
+            }).catch(error => {
+                console.log(error.data.message)
+            })
+            /*业绩成果*/
+            var achUrl = 'http://123.56.116.74:8080/zc/pinshen/base_06/'+ perId
+            axios.get(achUrl).then(res => {
+                //console.log(res.data.data)
+                this.person.achievements = res.data.data
+            }).catch(error => {
+                console.log(error.data.message)
+            })
+
+            /*业绩奖项*/
+            var priUrl = 'http://123.56.116.74:8080/zc/pinshen/base_07/'+perId
+            axios.get(priUrl).then(res => {
+                //console.log(res.data.data)
+                this.person.prize = res.data.data
+            }).catch(error => {
+                console.log(error.data.message)
+            })
+
+            /*业绩专利*/
+            var patUrl = 'http://123.56.116.74:8080/zc/pinshen/base_08/'+ perId
+            axios.get(patUrl).then(res => {
+                //console.log(res.data.data)
+                this.person.patent = res.data.data
+            }).catch(error => {
+                console.log(error.data.message)
+            })
+
+            /*从业或职(执)业资格*/
+            var cerUrl = 'http://123.56.116.74:8080/zc/pinshen/base_09/'+ perId
+            axios.get(cerUrl).then(res => {
+                //console.log(res.data.data)
+                this.person.certificate = res.data.data
+            }).catch(error => {
+                console.log(error.data.message)
+            })
+
+            /*国(境)工作或研究材料*/
+            var natUrl = 'http://123.56.116.74:8080/zc/pinshen/base_10/'+ perId
+            axios.get(natUrl).then(res => {
+                //console.log(res.data.data)
+                this.person.national = res.data.data
+            }).catch(error => {
+                console.log(error.data.message)
+            })
+
+            /*其他材料*/
+            var anoUrl = 'http://123.56.116.74:8080/zc/pinshen/base_12/'+ perId
+            axios.get(anoUrl).then(res => {
+                console.log(res.data.data)
+                this.person.another = res.data.data
+            }).catch(error => {
+                console.log(error.data.message)
+            })
+        },
+        methods:{
+            toCompany:function () {
+                window.location.href = '../Company/companyWrite.html'
+               /* var curProgress = 2
+                window.localStorage.setItem('key',curProgress)*/
+            },
+            goto:function (index) {
+                console.log(index)
+            },
+
+        }
+    })
+</script>
+</body>
+</html>
